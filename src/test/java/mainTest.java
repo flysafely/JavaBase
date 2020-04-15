@@ -1,6 +1,7 @@
 import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
+import SelfIncreasingVariable.SelfIncreasingVariableTest;
 import org.junit.Test;
 
 public class mainTest {
@@ -34,5 +35,10 @@ public class mainTest {
          可以在使用 类中重设泛型级别的方法 的时候在方法名前<Animal>显示的指定传入方法的入参类型
          */
         testClass.<Animal>show_3(dog);
+    }
+
+    @Test
+    public void SelfIncreasingVariable(){
+        SelfIncreasingVariableTest.Test_1();
     }
 }
