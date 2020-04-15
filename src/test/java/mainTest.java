@@ -1,3 +1,4 @@
+import BitOperation.BitOperation;
 import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
@@ -40,5 +41,10 @@ public class mainTest {
     @Test
     public void SelfIncreasingVariable(){
         SelfIncreasingVariableTest.Test_1();
+    }
+
+    @Test
+    public void BitOperation(){
+        BitOperation.BitOperationTest_1();
     }
 }
