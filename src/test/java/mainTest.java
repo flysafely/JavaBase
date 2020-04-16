@@ -3,7 +3,12 @@ import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
 import SelfIncreasingVariable.SelfIncreasingVariableTest;
+import Singleton.*;
 import org.junit.Test;
+
+import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class mainTest {
     @Test
@@ -46,5 +51,84 @@ public class mainTest {
     @Test
     public void BitOperation(){
         BitOperation.BitOperationTest_1();
+    }
+
+    @Test
+    public void SingletonHungryTest(){
+        SingletonHungryDemo object1 = SingletonHungryDemo.getSingletonDemo();
+        SingletonHungryDemo object2 = SingletonHungryDemo.getSingletonDemo();
+        System.out.println("对比一下object1等于object2：" + (object1 == object2));
+    }
+
+    @Test
+    public void SingletonLazyTest(){
+        SingletonLazyDemo object1 = SingletonLazyDemo.getSingletonLazyDemo();
+        SingletonLazyDemo object2 = SingletonLazyDemo.getSingletonLazyDemo();
+        System.out.println("对比一下object1等于object2：" + (object1 == object2));
+    }
+
+    /**
+     * 使用多线程测试单利模式的线程安全性
+     * 饿汉、懒汉、懒汉加锁，懒汉加双重校验，懒汉(静态内部类),枚举单例
+     */
+    @Test
+    public void MutilThreadTest(){
+        for (int i = 0; i < 1000 ; i++){
+            new Thread(() -> {
+                System.out.println(Thread.currentThread().getName() + "--->" + SingletonStaticInnerClassDemo.getInstance().toString().split("@")[1]);
+            },"线程：" + i).start();
+            new Thread(() -> {
+                System.out.println("111");
+            },"线程名称").start();
+        }
+    }
+
+
+
+    /**
+     * 通过反射机制来检测枚举单例模式
+     */
+    @Test
+    public void SingletonReflectionTest() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        SingletonEnumDemo singleton1=SingletonEnumDemo.INSTANCE;
+        SingletonEnumDemo singleton2=SingletonEnumDemo.INSTANCE;
+        System.out.println("正常情况下，实例化两个实例是否相同："+(singleton1==singleton2));
+        /**
+         * 通过反射创建一个枚举类型的单例
+         */
+        Constructor<SingletonEnumDemo> constructor= null;
+        constructor = SingletonEnumDemo.class.getDeclaredConstructor(String.class,int.class);//其父类的构造器
+        constructor.setAccessible(true);
+        SingletonEnumDemo singleton3= null;
+        /**
+         * 会直接报错
+         * java.lang.IllegalArgumentException: Cannot reflectively create enum objects
+         * 枚举类型的单例模式直接避免了反射攻击
+         */
+        singleton3 = constructor.newInstance("testInstance",66);
+        System.out.println(singleton1+"\n"+singleton2+"\n"+singleton3);
+        System.out.println("通过反射攻击单例模式情况下，实例化两个实例是否相同："+(singleton1==singleton3));
+    }
+
+    /**
+     * 通过序列化来检测枚举单例模式
+     */
+    @Test
+    public void SingletonSerializableTest() throws IOException, ClassNotFoundException {
+        SingletonEnumDemo s = SingletonEnumDemo.INSTANCE;
+        s.setContent("枚举单例序列化");
+        System.out.println("枚举序列化前读取其中的内容："+s.getContent());
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("SerEnumSingleton.obj"));
+        oos.writeObject(s);
+        oos.flush();
+        oos.close();
+
+        FileInputStream fis = new FileInputStream("SerEnumSingleton.obj");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        SingletonEnumDemo s1 = (SingletonEnumDemo)ois.readObject();
+        ois.close();
+        System.out.println(s+"\n"+s1);
+        System.out.println("枚举序列化后读取其中的内容："+s1.getContent());
+        System.out.println("枚举序列化前后两个是否同一个："+(s==s1));
     }
 }
