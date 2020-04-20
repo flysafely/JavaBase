@@ -2,6 +2,8 @@ import BitOperation.BitOperation;
 import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
+import JavaClassLoadingMechanism.ClassLoading;
+import JavaClassLoadingMechanism.MyClassLoader;
 import SelfIncreasingVariable.SelfIncreasingVariableTest;
 import Singleton.*;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.junit.Test;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class mainTest {
     @Test
@@ -131,4 +134,29 @@ public class mainTest {
         System.out.println("枚举序列化后读取其中的内容："+s1.getContent());
         System.out.println("枚举序列化前后两个是否同一个："+(s==s1));
     }
+
+    @Test
+    public void LoadingMechanismTest_1() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        MyClassLoader loader1 = new MyClassLoader("loader1");
+        MyClassLoader loader2 = new MyClassLoader("loader2");
+        /**
+         * 这里是加载的Classpath下的类，实现类加载器是ApplicationClassloader
+         */
+        Class<?> clazz1 = loader1.loadClass("JavaClassLoadingMechanism.MyClass");
+        /**
+         * 这里是加载的Classpath下的类，实现类加载器是ApplicationClassloader
+         * 同时AppClassloader是单例的，加载同一个类字节码最后生成的Class对象一定是相同的
+         */
+        Class<?> clazz2 = loader2.loadClass("JavaClassLoadingMechanism.MyClass");
+
+        System.out.println( clazz1 == clazz2);
+
+        Object object1 = clazz1.getDeclaredConstructor().newInstance();
+        Object object2 = clazz2.getDeclaredConstructor().newInstance();
+
+        Method method = clazz1.getMethod("setMyClass", Object.class);
+        method.invoke(object1, object2);
+    }
+
+
 }
