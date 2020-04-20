@@ -9,7 +9,7 @@ public class JavaDocTest {
 
     private String param_1;
     private static final String param_2 = "final static string!";
-
+    protected void test(){};
     /**
      * javaDocTest_1方法是JavaDocTest类中的一个测试方法
      */

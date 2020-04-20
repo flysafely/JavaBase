@@ -2,8 +2,8 @@ import BitOperation.BitOperation;
 import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
-import JavaClassLoadingMechanism.ClassLoading;
 import JavaClassLoadingMechanism.MyClassLoader;
+import ProtectedModifier.ChildPackage.SonBean;
 import SelfIncreasingVariable.SelfIncreasingVariableTest;
 import Singleton.*;
 import org.junit.Test;
@@ -158,5 +158,14 @@ public class mainTest {
         method.invoke(object1, object2);
     }
 
+    @Test
+    public void testProtected(){
+        SonBean sonBean = new SonBean();
+        /**
+         * 基类和子类不在同一个package中
+         * 子类的实例不能调用基类中的protected成员和方法！
+         */
+//        sonBean.protected_func();
 
+    }
 }
