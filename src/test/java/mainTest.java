@@ -3,6 +3,8 @@ import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
 import JavaClassLoadingMechanism.MyClassLoader;
+import ParamterPassingValue.Bean;
+import ParamterPassingValue.SwapTool;
 import ProtectedModifier.ChildPackage.SonBean;
 import SelfIncreasingVariable.SelfIncreasingVariableTest;
 import Singleton.*;
@@ -158,6 +160,9 @@ public class mainTest {
         method.invoke(object1, object2);
     }
 
+    /**
+     * ProtectedModifier测试基类和子类不同包下protected修饰符的成员变量和方法的访问问题
+     */
     @Test
     public void testProtected(){
         SonBean sonBean = new SonBean();
@@ -167,5 +172,17 @@ public class mainTest {
          */
 //        sonBean.protected_func();
 
+    }
+
+    /**
+     * ParamterPassingValue参数到底是传值还是传引用
+     */
+    @Test
+    public void testParamterPass(){
+        Bean a = new Bean("BeanA", 1);
+        Bean b = new Bean("BeanB",2);
+        System.out.println("交换前\na:"+a+"\nb:"+b);
+        SwapTool.swap(a, b);
+        System.out.println("交换后\na:"+a+"\nb:"+b);
     }
 }
