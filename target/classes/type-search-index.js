@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"Generic","l":"Animal"},{"p":"Generic","l":"Fruit"},{"p":"Generic","l":"GenericClass"},{"p":"JavaDoc","l":"JavaDocTest"},{"p":"<Unnamed>","l":"mainTest"},{"l":"所有类","url":"allclasses-index.html"}]

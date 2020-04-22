@@ -2,6 +2,7 @@ import BitOperation.BitOperation;
 import Generic.Animal;
 import Generic.Fruit;
 import Generic.GenericClass;
+import GetClassObjectMethod.Person;
 import JavaClassLoadingMechanism.MyClassLoader;
 import ParamterPassingValue.Bean;
 import ParamterPassingValue.SwapTool;
@@ -184,5 +185,25 @@ public class mainTest {
         System.out.println("交换前\na:"+a+"\nb:"+b);
         SwapTool.swap(a, b);
         System.out.println("交换后\na:"+a+"\nb:"+b);
+    }
+
+    /**
+     * 三种获取类Class对象的方法的区别
+     * 特别注意：字面量.class的方式获取的类对象
+     *         1.如果该类在其他地方已经加载过(类已经初始化)那么.class获取到的类对象就是已经初始化过的Class对象
+     *         2.如果该类是第一次加载，这种方式只会执行加载、链接两个步骤，不会进行类的初始化工作
+     *         Class.forName(false)的方式
+     *         1.如果该类在其他地方已经加载过(类已经初始化)那么Class.forName(false)获取到的类对象就是已经初始化过的Class对象
+     *         2.如果该类第一次加载，这种方式只会执行加载、链接(不执行解析)，不会进行类的初始化工作
+     * @throws Exception
+     */
+    @Test
+    public void testClassObjectMethod() throws Exception {
+        System.out.println("Class p = Person.class");
+        Class<?> p = Person.class;
+        System.out.println("Class.forName(false)");
+        Class<?> a = Class.forName("GetClassObjectMethod.Person",false,this.getClass().getClassLoader());
+        System.out.println("Class.forName(true)");
+        Class<?> b = Class.forName("GetClassObjectMethod.Person");
     }
 }
