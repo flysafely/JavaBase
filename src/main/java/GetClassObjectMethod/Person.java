@@ -10,6 +10,17 @@ public class Person {
     static {
         System.out.println("staticParam_1 已经初始化");
     }
+
+    static class innerClass{
+        static {
+            System.out.println("innerClass static!");
+        }
+
+        {
+            System.out.println("innerClass block!");
+        }
+    }
+
     public Person(String staticParam_4) {
         this.staticParam_4 = staticParam_4;
     }
