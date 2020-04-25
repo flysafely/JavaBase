@@ -4,6 +4,7 @@ import Generic.Fruit;
 import Generic.GenericClass;
 import GetClassObjectMethod.Person;
 import JavaClassLoadingMechanism.MyClassLoader;
+import JavaUtilConcurrent.ReentrantLock.Ticket;
 import ParamterPassingValue.Bean;
 import ParamterPassingValue.SwapTool;
 import ProtectedModifier.ChildPackage.SonBean;
@@ -293,5 +294,18 @@ public class mainTest {
 
         // 输出时间日期的完整信息
         System.out.printf("%1$tc%n", date);
+    }
+    /**
+     * JUC中的ReentrantLock锁的范例
+     * 三个售票员
+     */
+    @Test
+    public void testReentrantlLoak() throws InterruptedException {
+        Ticket initTicket = new Ticket();
+        new Thread(()->{for (int i = 1; i < 400;i++)initTicket.sale();},"售票员A").start();
+        new Thread(()->{for (int i = 1; i < 400;i++)initTicket.sale();},"售票员B").start();
+        new Thread(()->{for (int i = 1; i < 400;i++)initTicket.sale();},"售票员C").start();
+        //
+        Thread.sleep(10000);
     }
 }

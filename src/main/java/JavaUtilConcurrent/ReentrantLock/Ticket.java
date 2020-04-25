@@ -13,9 +13,22 @@ public class Ticket {
                 System.out.println(Thread.currentThread().getName() + "\t卖出第：" + (number--) + "\t还剩下：" + number);
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }finally {
             lock.unlock();
         }
+    }
+
+    /**
+     * 在单元测试中的多线程任务会出现，多线程执行异常的问题
+     * 需要在单线程中阻止TestRunner启动的主线程直接结束线程的情况
+     * 让其等待其他子线程执行后再结束主线程
+     *
+     */
+    public static void main(String[] args) {
+        Ticket initTicket = new Ticket();
+        new Thread(()->{for (int i = 1; i < 100;i++)initTicket.sale();},"售票员A").start();
+        new Thread(()->{for (int i = 1; i < 100;i++)initTicket.sale();},"售票员B").start();
+        new Thread(()->{for (int i = 1; i < 100;i++)initTicket.sale();},"售票员C").start();
     }
 }
