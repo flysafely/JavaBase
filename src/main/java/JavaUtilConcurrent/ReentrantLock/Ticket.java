@@ -22,7 +22,7 @@ public class Ticket {
     /**
      * 在单元测试中的多线程任务会出现，多线程执行异常的问题
      * 需要在单线程中阻止TestRunner启动的主线程直接结束线程的情况
-     * 让其等待其他子线程执行后再结束主线程
+     * 让其等待其他子线程执行完毕
      *
      */
     public static void main(String[] args) {
