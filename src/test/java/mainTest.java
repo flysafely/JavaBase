@@ -13,10 +13,11 @@ import Singleton.*;
 import org.junit.Test;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.util.*;
 
 public class mainTest {
     @Test
@@ -307,5 +308,20 @@ public class mainTest {
         new Thread(()->{for (int i = 1; i < 400;i++)initTicket.sale();},"售票员C").start();
         //
         Thread.sleep(10000);
+    }
+
+    /**
+     * Collections集合工具中的支持并发，将线程不安全的Collection类转换成线程安全的
+     */
+    @Test
+    public void testArrayList() throws InterruptedException {
+//        Collection<Object> list = Collections.synchronizedCollection(new ArrayList<>());
+        List<String> list = new ArrayList<>();
+        for (int i = 300; i > 0;i--){
+//            System.out.println(UUID.randomUUID().toString().substring(0,8));
+            new Thread(()->{list.add(UUID.randomUUID().toString().substring(0,8));},String.valueOf(i)).start();
+            System.out.println(list);
+        }
+        System.out.println(list);
     }
 }
