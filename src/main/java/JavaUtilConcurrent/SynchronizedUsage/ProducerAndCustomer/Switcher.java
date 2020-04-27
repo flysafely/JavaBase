@@ -9,7 +9,9 @@ public class Switcher {
     public synchronized void Open() throws InterruptedException {
         while (Status.name() != "CLOSE"){
             /**
-             *
+             * 判断是否开关状态是否为关闭
+             * 如果不是关闭状态就将进来线程阻塞在
+             * this.wait()语句
              */
             this.wait();
         }
