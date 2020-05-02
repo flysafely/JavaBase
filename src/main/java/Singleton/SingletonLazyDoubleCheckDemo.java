@@ -16,6 +16,11 @@ public class SingletonLazyDoubleCheckDemo {
     private SingletonLazyDoubleCheckDemo(){}
 
     public static SingletonLazyDoubleCheckDemo getSingletonLazyDoubleCheckDemo(){
+        /**
+         * 这里为什么需要单独再判断一下的原因：
+         * 可以极大的提高获取单例的效率，因为创建单例只有一次 一个线程执行就可以了，后续单例的获取
+         * 就不需要再进到加锁的代码块中执行了
+         */
         if (singletonLazyDoubleCheckDemo == null){
             /**
              * 给类上锁，多个线程，同时只能有一个线程获取这个类的锁，也就只有一个线程能够初始化对象并赋值
