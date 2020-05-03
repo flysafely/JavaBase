@@ -202,17 +202,31 @@ public class mainTest {
      */
     @Test
     public void testClassObjectMethod() throws Exception {
+        /**
+         * 不执行类的初始化
+         */
         System.out.println("Class p = Person.class");
         Class<?> p = Person.class;
+        /**
+         * 不执行类的初始化
+         */
         System.out.println("Class.forName(false)");
         Class<?> a = Class.forName("GetClassObjectMethod.Person",false,this.getClass().getClassLoader());
+        /**
+         * 执行类的初始化
+         */
         System.out.println("Class.forName(true)");
         Class<?> b = Class.forName("GetClassObjectMethod.Person");
+        /**
+         * 不执行类的初始化
+         */
+        System.out.println("ClassLoader.loadClass");
+        Class<?> c = this.getClass().getClassLoader().loadClass("Person");
     }
 
     @Test
     public void test(){
-/*** 输出字符串 ***/
+        /*** 输出字符串 ***/
         // %s表示输出字符串，也就是将后面的字符串替换模式中的%s
         System.out.printf("%s", new Integer(1212));
         // %n表示换行

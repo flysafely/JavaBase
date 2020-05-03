@@ -7,6 +7,9 @@ public class Person {
     public        final String staticParam_4;
     public              String NonStaticParam_1  =        String.valueOf(1);
 
+    /**
+     * 类初始化的时候执行
+     */
     static {
         System.out.println("staticParam_1 已经初始化");
     }
