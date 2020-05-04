@@ -23,6 +23,7 @@ public class IntegerAtomic {
     }
 
     /**
+     * CAS原理
      * 这段代码是getAndIncrement()中getAndAddInt()方法的源代码
      * 主要是实现原子整形类的自增操作
      * @param o  代表了实例对象
