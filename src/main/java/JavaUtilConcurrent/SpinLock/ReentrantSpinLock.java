@@ -3,7 +3,7 @@ package JavaUtilConcurrent.SpinLock;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * 不可重入的自旋锁
+ * 可重入的自旋锁
  */
 public class ReentrantSpinLock {
     private AtomicReference<Thread> atomicReference = new AtomicReference<>();
@@ -17,6 +17,10 @@ public class ReentrantSpinLock {
          */
         Thread thread = Thread.currentThread();
         if (thread == atomicReference.get()){
+            /**
+             * 判断当前线程如果是已经持有锁的线程
+             * 可在锁计数器上加1，体现出可重入的特性
+             */
             lockCount++;
             return;
         }
@@ -32,7 +36,7 @@ public class ReentrantSpinLock {
         Thread thread = Thread.currentThread();
         /**
          * 解铃还须系铃人
-         * 要让当时加锁的线程，来解锁
+         * 要让持有锁的线程，来解锁
          * 也就是compareandset方法的期望线程为
          */
         if (thread == atomicReference.get()) {
