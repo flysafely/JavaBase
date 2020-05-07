@@ -57,6 +57,7 @@ public class JoinDemo implements Runnable{
 
         /**
          * 需要抛出异常的方法，不能使用双冒号的方式
+         * 调用join()方法的线程是主线程
          */
         thlist.forEach((th) -> {
             try {
