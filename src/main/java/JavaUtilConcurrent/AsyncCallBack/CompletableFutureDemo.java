@@ -15,14 +15,14 @@ public class CompletableFutureDemo {
          * Void 是void的包装类型，是一个类
          * CompletableFuture<Void>代表了没有返回值
          */
-//        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
-//            System.out.println(Thread.currentThread().getName() + "线程是没有返回值");
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
+        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
+            System.out.println(Thread.currentThread().getName() + "线程是没有返回值");
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         /**
          * Integer 代表了completableFuture2的返回值类型为Integer
          */
