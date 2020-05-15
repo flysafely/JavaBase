@@ -13,8 +13,14 @@ public class ReferenceDemo {
     o1 = null;
 
     System.out.println(o1);
+    /**
+     * 模拟内存不足执行GC
+     */
     System.gc();
-
+    /**
+     * 强引用在任何情况下都不会释放
+     * 内存满了也直接抛出OOM
+     */
     System.out.println(o2);
   }
 }
