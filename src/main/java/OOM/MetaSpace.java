@@ -1,5 +1,7 @@
 package OOM;
-
+/**
+ *需要使用到cglib，maven中导入包
+ */
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
